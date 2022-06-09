@@ -1,66 +1,41 @@
-#include<iostream>
-#include<list>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 class Graph {
-  int V;                         //no. of vertices
-  list<int>* adjLists;
-  bool* visited;
+public:
+	map<int, bool> Visited;
+	map<int, list<int> > adj;
 
-   public:
-  Graph(int vertices);
-  void addEdge(int src, int dest);
-  void bfs(int startVertex);
+	void addEdge(int v, int w);
+
+	void Dfs(int v);
 };
 
-Graph::Graph(int vertices) {
-  V = vertices;
-  adjLists = new list<int>[vertices];
+void Graph::addEdge(int v, int w)
+{
+	adj[v].push_back(w);
 }
 
-void Graph::add_Edge(int src, int dest) {
-  adjLists[src].pushBack(dest);
-  adjLists[dest].pushBack(src);
+void Graph::Dfs(int v){
+	Visited[v] = true;
+	cout << v << " ";
+	list<int>::iterator i;
+	for (i = adj[v].begin(); i != adj[v].end(); ++i)
+		if (!Visited[*i])
+			Dfs(*i);
 }
 
-void Graph::bfs(int startVertex) {
-  visited = new bool[V];
-  for (int i = 0; i < V; i++)
-    visited[i] = false;
+int main(){
+	Graph g;
+	g.addEdge(0, 1);
+	g.addEdge(0, 2);
+	g.addEdge(1, 2);
+	g.addEdge(2, 0);
+	g.addEdge(2, 3);
+	g.addEdge(3, 3);
 
-  list<int> queue;
+	cout << "Depth First Traversal(starting from vertex 0)"<<endl;
+	g.Dfs(0);
 
-  visited[startVertex] = true;
-  queue.pushBack(startVertex);
-
-  list<int>::iterator i;
-
-  while (!queue.empty()) {
-    int currVertex = queue.front();
-    cout << "Visited " << currVertex << " ";
-    queue.pop_front();
-
-    for (i = adjLists[currVertex].begin(); i != adjLists[currVertex].end(); ++i) {
-      int adjVertex = *i;
-      if (!visited[adjVertex]) {
-        visited[adjVertex] = true;
-        queue.pushBack(adjVertex);
-      }
-    }
-  }
-}
-
-int main() {
-  Graph g(6);
-  g.addEdge(0, 1);
-  g.addEdge(0, 2);
-  g.addEdge(1, 2);
-  g.addEdge(2, 0);
-  g.addEdge(2, 3);
-  g.addEdge(3, 3);
-
-  g.bfs(3);
-
-  return 0;
+	return 0;
 }
