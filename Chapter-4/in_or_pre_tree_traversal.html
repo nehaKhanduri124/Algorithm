@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>traversal</title>
+</head>
+<body>
+    <h2>TREE TRAVERSALS </h2>
+</body>
+<script>
+class Node {
+	constructor(val) {
+		this.key = val;
+		this.left = null;
+		this.right = null;
+	}
+}
+	var root = null;
+	function Post_order(node) {
+		if (node == null)
+			return;
+		Post_order(node.left);
+		Post_order(node.right);
+		console.log(node.key + " ");
+	}
+
+	function In_order(node) {
+		if (node == null)
+			return;
+        In_order(node.left);
+		console.log(node.key + " ");
+		In_order(node.right);
+	}
+
+	function Pre_order(node) {
+		if (node == null)
+			return;
+		console.log(node.key + " ");
+		Pre_order(node.left);
+		Pre_order(node.right);
+		
+	}
+
+		root = new Node(1);
+		root.left = new Node(4);
+		root.right = new Node(3);
+		root.left.left = new Node(9);
+		root.left.right = new Node(20);
+
+		console.log("PREORDER TRAVERSAL");
+		Pre_order(root);
+
+		console.log("INORDER TRAVERSAL");
+		In_order(root);
+
+		console.log("POSTORDER TRAVERSAL");
+		Post_order(root);
+</script>
+</html>
