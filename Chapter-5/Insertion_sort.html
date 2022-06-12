@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSERTION SORT</title>
+</head>
+<body>
+    <h2>Insertion Sort</h2>
+</body>
+<script>
+    function Insertion_sort(arr,n){
+        for(let j=0;j<n;j++){
+            for(let i=0;i<n-1;i++){
+                if(arr[i]>arr[i+1]){
+                    let temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+    let arr = [9,6,7,2,1,10];
+    let n = arr.length;
+    let a = Insertion_sort(arr,n)
+    console.log("The Insertion Sort is ");
+    console.log(a);
+</script>
+</html>
