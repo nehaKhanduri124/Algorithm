@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUICKSORT</title>
+</head>
+<body>
+    <h2>Quick Sort</h2>
+</body>
+    <script>
+        function Swap(arr,x, y){
+	        let temp;
+	        temp = arr[x];
+	        arr[x] = arr[y];
+	        arr[y] = temp;
+        }
+
+        function partition(arr, last, first){
+            i = (last - 1)
+            piv = arr[first]
+
+            for(let j=last;j<first;j++){
+                if(arr[j] <= piv){
+                    i = i + 1
+                    Swap(arr,i,j);
+                }
+            }
+            Swap(arr,i+1,first);
+            return (i + 1);
+        }
+
+        function Quick_Sort(arr, last, first){
+            if(last < first){
+                pi = partition(arr, last, first)
+                Quick_Sort(arr, last, pi - 1)
+                Quick_Sort(arr, pi + 1, first)
+            }
+        }
+
+        function display(arr,num){
+            console.log("sorted Array using QuickSort is:  ");
+	        for (let i=0;i<num;i++){
+                console.log(arr[i]);
+	        }
+        }
+
+        let arr = [ 19,1,7,3,2 ];
+        let size = arr.length;
+
+        Quick_Sort(arr, 0, size-1);
+        display(arr,size);
+    </script>
+</html>
