@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEAP SORTt</title>
+</head>
+<body>
+    <h2>Heap Sort</h2>
+</body>
+<script>
+    const max_Heapify = (a, num, i) => {
+        let largest = i;
+        let l = 2 * i + 1;
+        let r = 2 * i + 2;
+  
+        if (l < num && a[l] > a[largest]) {
+            largest = l; 
+        }
+   
+        if (r < num && a[r] > a[largest]) {
+            largest = r; 
+        }
+   
+        if (largest != i) { 
+            let temp = a[i]; 
+            a[i] = a[largest]; 
+            a[largest] = temp; 
+   
+            max_Heapify(a, num, largest); 
+        } 
+    }
+
+    const Heap_Sort = (a, num) => { 
+        for (let i = parseInt(num / 2 - 1); i >= 0; i--) {
+            max_Heapify(a, num, i); 
+        }
+  
+        for (let i = num - 1; i >= 0; i--) { 
+            let temp = a[0]; 
+            a[0] = a[i]; 
+            a[i] = temp; 
+            max_Heapify(a, i, 0); 
+        } 
+    }
+
+    let A = new Array(9,8,1,7,3,5,6,0);
+    console.log("Before Heap Sort array is :"+A);
+    let num = A.length;
+    
+    Heap_Sort(A,num);
+    console.log("After Heap Sort array is  : "+A);
+</script>
+</html>
