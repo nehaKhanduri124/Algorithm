@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFS</title>
+</head>
+<body>
+    <h2>Depth First Search Traversal</h2>
+</body>
+<script>
+class Queue1 {
+    constructor() {
+        this.items = [];
+    }
+
+    addEle_queue(element) {
+        return this.items.push(element);
+    }
+    DeleteEle_queue() {
+        if(this.items.length > 0) {
+            return this.items.shift();
+        }
+    }
+    isEmpty(){
+       return this.items.length == 0;
+    }
+}
+
+    class Graph {
+    constructor(noOfver){
+        this.noOfver = noOfver;
+        this.adj_List = new Map();
+    }
+ 
+    Add_Vertex(v){
+    this.adj_List.set(v, []);
+    }
+
+    Add_Edge(v, w){
+	this.adj_List.get(v).push(w);
+	this.adj_List.get(w).push(v);
+    }
+
+    print_Graph(){
+	    let get_keys = this.adj_List.keys();
+	    for (let i of get_keys){
+		    let get_values = this.adj_List.get(i);
+		    let conc = "";
+		    for (let j of get_values)
+			    conc += j + " ";
+		    console.log(i + " -> " + conc);
+	    }
+    }
+
+    DFS(Starting_Node){
+	    var Visited_node = {};
+	    this.DFSUtil(Starting_Node, Visited_node);
+    }
+    DFSUtil(vertex, Visited_node){
+	    Visited_node[vertex] = true;
+	    console.log(vertex);
+
+	    var get_Neighbours = this.adj_List.get(vertex);
+
+	    for (var i in get_Neighbours) {
+		    var get_element = get_Neighbours[i];
+		    if (!Visited_node[get_element])
+		    	this.DFSUtil(get_element, Visited_node);
+	    }
+    }
+}
+let x = new Graph(7);
+let vertex = [ 'A', 'B', 'C', 'D', 'E','F','G'];
+
+for (let i = 0; i < vertex.length; i++) {
+	x.Add_Vertex(vertex[i]);
+}
+
+x.Add_Edge('A', 'C');
+x.Add_Edge('A', 'B');
+x.Add_Edge('A', 'D');
+x.Add_Edge('D', 'E');
+x.Add_Edge('E', 'F');
+x.Add_Edge('B', 'G');
+
+console.log("Depth Fisrt Search");
+x.DFS('A');
+
+</script>
+</html>
