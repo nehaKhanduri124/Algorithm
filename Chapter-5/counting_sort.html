@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COUNTING SORT</title>
+</head>
+<body>
+    <h2>Counting Sort</h2>
+</body>
+<script>
+    function Counting_sort(a){
+        var max = Math.max.apply(Math, a);
+        var min = Math.min.apply(Math, a);
+    
+        var range = max - min + 1;
+        var count_arr = Array.from({length: range}, (_, i) => 0);
+        var output_arr = Array.from({length: a.length}, (_, i) => 0);
+        for (i = 0; i < a.length; i++) {
+            count_arr[a[i] - min]++;
+        }
+    
+        for (i = 1; i < count_arr.length; i++) {
+            count_arr[i] += count_arr[i - 1];
+        }
+    
+        for (i = a.length - 1; i >= 0; i--) {
+            output_arr[count_arr[a[i] - min] - 1] = a[i];
+            count_arr[a[i] - min]--;
+        }
+    
+        for (i = 0; i < a.length; i++) {
+            a[i] = output_arr[i];
+        }
+    }
+    
+    function Display(a){
+        console.log("  Array after Counting Sort is :  ");
+        for (i = 0; i < a.length; i++){
+            console.log(a[i] + " ");
+        }
+    }
+    
+    var a = [ 9,6,1,8,2,0,4 ];
+    console.log(" Array Before Counting Sort is : "+a); 
+    Counting_sort (a);
+    Display(a);
+</script>
+</html>
