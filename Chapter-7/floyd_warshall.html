@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOYD  WARSHALL  ALGORITHM</title>
+</head>
+<body>
+    <h1>Floyd Warshall Algorithm</h1>
+    <script>
+        let MAXN = 100;
+
+        let INF = 1e7;
+        let dis = new Array(MAXN);
+        let Next = new Array(MAXN);
+        for(let i = 0; i < MAXN; i++){
+	        dis[i] = new Array(MAXN);
+	        Next[i] = new Array(MAXN);
+        }
+
+        function Initialise(Vertex, graph){
+	        for(let i = 0; i < Vertex; i++){
+		        for(let j = 0; j < Vertex; j++){
+			        dis[i][j] = graph[i][j];
+			        if (graph[i][j] == INF)
+				        Next[i][j] = -1;
+			        else
+				        Next[i][j] = j;
+		        }
+	        }
+        }
+
+        function Construct_Path(u, v){
+		    if (Next[u][v] == -1)
+		    return null;
+	        let path = [];
+	        path.push(u);
+	
+	        while (u != v){
+		        u = Next[u][v];
+		        path.push(u);
+	        }
+	        return path;
+        }
+
+        function Floyd_Warshall(Vertex){
+	        for(let k = 0; k < Vertex; k++){
+		        for(let i = 0; i < Vertex; i++){
+			        for(let j = 0; j < Vertex; j++){
+				        if (dis[i][k] == INF || dis[k][j] == INF)
+					        continue;
+					
+				        if (dis[i][j] > dis[i][k] + dis[k][j]){
+					        dis[i][j] = dis[i][k] +	dis[k][j];
+					        Next[i][j] = Next[i][k];
+				        }
+			        }
+		        }
+	        }
+        }
+
+        function Display(path){
+	        let n = path.length;
+	        for(let i = 0; i < n - 1; i++)
+		        document.write(path[i] + " -> ");
+		
+	        document.write(path[n - 1] + "<br>");
+        }
+
+        let Vertex = 4;
+        let graph = [ [ 0, 3, INF, 5 ],
+			[ 2, 0,  INF, 4 ],
+			[  INF, 1, 0, INF ],
+			[  INF, INF, 2,  0 ] ];
+
+        Initialise(Vertex, graph);
+        Floyd_Warshall(Vertex);
+        let path;
+
+        document.write(" Shortest path from 1 to 3 : ");
+        path = Construct_Path(1, 3);
+        Display(path);
+
+        document.write(" Shortest path from 0 to 2 :  ");
+        path = Construct_Path(0, 2);
+        Display(path);
+
+        document.write(" Shortest path from 3 to 2 :  ");
+        path = Construct_Path(3, 2);
+        Display(path);
+    </script>
+</body>
+</html>
