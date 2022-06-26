@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BREADTH FIRST SEARCH</title>
+</head>
+<body>
+    <h3>Breadth First Search</h3>
+</body>
+<script>
+class Q {
+    constructor() {
+        this.items = [];
+    }
+    
+    EnQueue(element) {
+        return this.items.push(element);
+    }
+    DeQueue() {
+        if(this.items.length > 0) {
+            return this.items.shift();
+        }
+    }
+    is_Empty(){
+       return this.items.length == 0;
+    }
+}
+
+    class Graphs {
+    constructor(no_of_vrtx)
+    {
+        this.no_of_vrtx = no_of_vrtx;
+        this.Adj_List = new Map();
+    }
+ 
+    Add_Vertex(v){
+    this.Adj_List.set(v, []);
+    }
+
+    Add_Edge(v, w){
+	this.Adj_List.get(v).push(w);
+	this.Adj_List.get(w).push(v);
+    }
+
+    print_Graphs(){
+	    let Get_keys = this.Adj_List.keys();
+	    for (let i of Get_keys){
+		    let Get_values = this.Adj_List.get(i);
+		    let conc = "";
+		    for (let j of get_values)
+			    conc += j + " ";
+		    console.log(i + " -> " + conc);
+	    }
+    }
+
+ 
+    BFS(starting_Node){
+	    let visited = {};
+    	let q = new Q();
+
+	    visited[starting_Node] = true;
+	    q.EnQueue(starting_Node);
+
+	    while (!q.is_Empty()) {
+		    let get_QueueElement = q.DeQueue();
+            console.log(get_QueueElement);
+            let get_List = this.Adj_List.get(get_QueueElement);
+		    for (let i in get_List) {
+			    let neigh = get_List[i];
+                if (!visited[neigh]) {
+				    visited[neigh] = true;
+				    q.EnQueue(neigh);
+			    }
+		    }
+	    }
+    }
+}
+
+let G= new Graphs(6);
+let vrtx = [ 0,1,2,3,4,5];
+
+for (let i = 0; i < vrtx.length; i++) {
+	G.Add_Vertex(vrtx[i]);
+}
+
+G.Add_Edge(0, 1);
+G.Add_Edge(0, 3);
+G.Add_Edge(0, 4);
+G.Add_Edge(4, 5);
+G.Add_Edge(3, 5);
+G.Add_Edge(1, 2 );
+G.Add_Edge(1, 0);
+G.Add_Edge(2, 1);
+G.Add_Edge(4, 1);
+G.Add_Edge(3, 1);
+G.Add_Edge(5, 4);
+G.Add_Edge(5, 3);
+
+console.log("BFS");
+G.BFS(0);
+
+</script>
+</html>
