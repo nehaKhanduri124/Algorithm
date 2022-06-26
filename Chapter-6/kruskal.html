@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRUSKAL  ALGORITHM</title>
+</head>
+<body>
+    <h2>Kruskal's Algorithm</h2>
+    <script>
+        var Vertex = 5;
+        var parent = Array(Vertex).fill(0);
+        var INF = 1000000000;
+
+        function find_set(i){
+	        while (parent[i] != i)
+		    i = parent[i];
+	        return i;
+        }
+
+        function union_set(i, j){
+	        var x = find(i);
+	        var y = find(j);
+	        parent[x] = y;
+        }
+
+        function Kruskal_MST(cost){
+	        var Min_cost = 0;
+	        for (var i = 0; i < Vertex; i++)
+		        parent[i] = i;
+
+	        var Edge_count = 0;
+	        while (Edge_count < Vertex - 1){
+		        var min = INF, x = -1, y = -1;
+		        for (var i = 0; i < Vertex; i++){
+			        for (var j = 0; j < Vertex; j++){
+				        if (find(i) != find(j) && cost[i][j] < min){
+					        min = cost[i][j];
+					        x = i;
+					        y = j;
+				        }
+			        }
+		        }
+
+		        union_set(x, y);
+                console.log(`Edge ${Edge_count++}:(${x},${y}) cost:${min}`);
+		        Min_cost += min;
+	        }
+	        console.log(`Minimum cost= ${Min_cost}`);
+        }
+
+        var cost = [
+	        [INF    , 2, INF, 6, INF],
+	        [2, INF, 3, 8, 5],
+	        [INF, 3, INF, INF, 7],
+	        [6, 8, INF, INF, 9],
+	        [INF, 5, 7, 9, INF]];
+        Kruskal_MST(cost);
+    </script>
+</body>
+</html>
