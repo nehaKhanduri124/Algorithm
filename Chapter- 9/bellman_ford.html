@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BELLMAN FORD</title>
+</head>
+<body>
+    <h1>Bellman Ford Algorithm</h1>
+</body>
+<script>
+    function Bellman_Ford(graph, V, E, source){
+        var dis = Array(V).fill(1000000000);
+        dis[source] = 0;
+    
+        for (var i = 0; i < V - 1; i++){
+            for (var j = 0; j < E; j++){
+                if ((dis[G[j][0]] + G[j][2]) < dis[G[j][1]])
+                    dis[G[j][1]] = dis[G[j][0]] + G[j][2];
+            }
+        }
+
+        for (var i = 0; i < E; i++){
+            var x = G[i][0];
+            var y = G[i][1];
+            var weight = G[i][2];
+            if ((dis[x] != 1000000000) &&
+                    (dis[x] + weight < dis[y]))
+                console.log("Graph contains negative" +" weight cycle<br>");
+        }
+    
+        console.log("(Vertex)   (Distance from Source)");
+        for (var i = 0; i < V; i++)
+            console.log(i + "\t\t\t" + dis[i]);
+    }
+    
+    var V = 6; 
+    var E = 9;
+    
+    var G = [[ 0, 1, 6], [ 0, 2, 4 ],[ 0, 3, 5],
+                    [ 1, 4, -1],
+                    [ 2, 1, -2 ], [ 2, 4, 3 ],
+                    [ 3, 2, -2 ], [ 3, 5, -1 ], [4, 5, 3]];
+    Bellman_Ford(G, V, E, 0);
+    </script>
+    </html>
