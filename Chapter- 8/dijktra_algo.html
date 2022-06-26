@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIJKTRA'S  ALGORITHM</title>
+</head>
+<body>
+    <h1>Dijkstra's Algorithm</h1>
+    <script>
+        let Vertex = 7;
+        function min_Distance(dist,sptSet){
+	        let min = Number.MAX_VALUE;
+	        let min_Index = -1;
+	
+            for(let v = 0; v < Vertex; v++){
+		        if (sptSet[v] == false && dist[v] <= min){
+			        min = dist[v];
+			        min_Index = v;
+		        }
+	        }
+	        return min_Index;
+        }
+
+        function Display(dist){
+	        console.log("Vertex \t\t Distance from Source");
+	        for(let i = 0; i < Vertex; i++){
+		        console.log(i + " \t\t\t " + dist[i]);
+	        }
+        }
+
+        function Dijkstra_Algo(G, source){
+	        let dist = new Array(Vertex);
+	        let sptSet = new Array(Vertex);
+	
+	        for(let i = 0; i < Vertex; i++){
+		        dist[i] = Number.MAX_VALUE;
+		        sptSet[i] = false;
+            }
+	        dist[source] = 0;
+	
+	        for(let count = 0; count < Vertex - 1; count++){
+	    	    let u = min_Distance(dist, sptSet);
+			    sptSet[u] = true;
+		
+		        for(let v = 0; v < Vertex; v++){
+				    if (!sptSet[v] && G[u][v] != 0 && dist[u] != Number.MAX_VALUE && dist[u] + G[u][v] < dist[v]){
+				        dist[v] = dist[u] + G[u][v];
+			        }
+		        }
+	        }
+	        Display(dist);
+        }
+
+        let G =[[0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 1, 0, 0, 1, 0],
+            [1, 1, 0, 1, 1, 0, 0],
+            [1, 0, 1, 0, 0, 0, 1],
+            [0, 0, 1, 0, 0, 1, 0],
+            [0, 1, 0, 0, 1, 0, 1],
+            [0, 0, 0, 1, 0, 1, 0]]
+
+        Dijkstra_Algo(G, 0);
+    </script>
+</body>
+</html>
