@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERGE SORT ALGORITHM</title>
+</head>
+<body>
+    <h2>MERGE SORT ALGORITHM</h2>
+</body>
+<script>
+    function Merge(arr1, l, m, r){
+	    var n1 = m - l + 1;
+	    var n2 = r - m;
+
+	    var L = new Array(n1);
+	    var R = new Array(n2);
+
+	    for (var i = 0; i < n1; i++)
+		    L[i] = arr1[l + i];
+	    for (var j = 0; j < n2; j++)
+		    R[j] = arr1[m + 1 + j];
+
+	    var i = 0;
+	    var j = 0;
+	    var k = l;
+
+	    while (i < n1 && j < n2) {
+		    if (L[i] <= R[j]) {
+			    arr1[k] = L[i];
+			    i++;
+		    }
+		    else{
+			    arr1[k] = R[j];
+			    j++;
+		    }
+		    k++;
+	    }
+
+	    while (i < n1) {
+		    arr1[k] = L[i];
+		    i++;
+		    k++;
+	    }
+
+	    while (j < n2) {
+		    arr1[k] = R[j];
+		    j++;
+		    k++;
+	    }
+    }
+
+    function Merge_Sort(arr1,l, r){
+	    if(l>=r){
+		    return;
+	    }
+	    var m =l+ parseInt((r-l)/2);
+	    Merge_Sort(arr1,l,m);
+	    Merge_Sort(arr1,m+1,r);
+	    Merge(arr1,l,m,r);
+    }
+
+    function Display_array( arr2, size){
+	    for (var i = 0; i < size; i++)
+	    console.log( arr2[i] + " ");
+    }
+
+
+    var arr1 = [ 99,66,2,9,12,45,0];
+    var size = arr1.length;
+
+    Merge_Sort(arr1, 0, size-1);
+
+    console.log( "The Sorted array after Merge Sort is :");
+	Display_array(arr1, size);
+
+</script>
+</html>
