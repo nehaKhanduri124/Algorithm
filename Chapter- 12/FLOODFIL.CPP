@@ -1,7 +1,6 @@
 #include<iostream.h>
 #include<graphics.h>
 #include<dos.h>
-#include<conio.h>
 
 void Flood_Fill(int x,int y,int old_Color,int new_Color)
 {
