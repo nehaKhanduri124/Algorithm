@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLLOD FILL  ALGORITHM</title>
+</head>
+<body>
+    <h1>Flood Fill</h1>
+<script>
+ function pixel_isValid(screen, m, n, x, y, old_Color, new_Color)
+ {
+     if(x<0 || x>= m || y<0 || y>= n || screen[x][y]!= old_Color
+       || screen[x][y]== new_Color)
+       return false;
+       return true;
+}
+   function Flood_fill(screen, m, n, x, y, old_Color, new_Color)
+       {
+        let Q = [];
+       Q.push([x, y]);
+       screen[x][y] = new_Color;
+ 
+while(Q.length > 0)
+		{
+        curr_pixel = Q[Q.length - 1];
+        Q.pop();
+        let posX = curr_pixel[0];
+        let posY = curr_pixel[1];
+			
+if(pixel_isValid(screen, m, n, posX + 1, posY, old_Color, new_Color))
+    {
+       screen[posX + 1][posY] = new_Color;
+       Q.push([posX + 1, posY]);
+    }
+
+if(pixel_isValid(screen, m, n, posX-1, posY, old_Color, new_Color))
+   {
+       screen[posX-1][posY]= new_Color;
+       Q.push([posX-1, posY]);
+   }
+
+if(pixel_isValid(screen, m, n, posX, posY + 1, old_Color, new_Color))
+  {
+        screen[posX][posY + 1]= new_Color;
+        Q.push([posX, posY + 1]);
+  }
+
+if(pixel_isValid(screen, m, n, posX, posY-1, old_Color, new_Color))
+  {
+       screen[posX][posY-1]= new_Color;
+       Q.push([posX, posY-1]);
+ }
+         }
+               }
+	
+     let screen =[
+	[1, 1, 1, 1, 1, 1, 1, 1],
+	[1, 1, 1, 1, 1, 1, 0, 1],
+	[1, 0, 0, 1, 1, 0, 1, 1],
+	[1, 2, 2, 2, 2, 0, 1, 0],
+	[1, 1, 1, 2, 2, 0, 1, 0],
+	[1, 1, 1, 2, 2, 2, 2, 0],
+	[1, 1, 1, 1, 1, 2, 1, 1],
+	[1, 1, 1, 1, 1, 2, 2, 1]];
+
+       let m = screen.length;
+       let n = screen[0].length;
+       let x = 4;
+       let y = 4;
+
+     let old_Color = screen[x][y];
+       let new_Color = 3;
+
+Flood_fill(screen, m, n, x, y, old_Color, new_Color);
+      for(let i = 0; i < m; i++)
+            {
+               for(let j = 0; j < n; j++)
+                   {
+            document.write(screen[i][j] + " ");
+	}
+            document.write("</br>");
+	}
+
+</script>
+</body>
+</html?
